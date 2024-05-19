@@ -1,4 +1,9 @@
-import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react";
+import {
+  useEditor,
+  EditorContent,
+  BubbleMenu,
+  FloatingMenu,
+} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { createLowlight } from "lowlight";
@@ -50,6 +55,65 @@ export default function Editor() {
         className="max-w-[90%] mx-auto p-16 prose prose-teal dark:prose-invert"
         editor={editor}
       />
+      {editor && (
+        <FloatingMenu
+          editor={editor}
+          shouldShow={({ state }) => {
+            const { $from } = state.selection;
+
+            const currentLineText = $from.nodeBefore?.textContent;
+
+            return currentLineText === "/";
+          }}
+          className="py-2 px-1 shadow-xl border border-zinc-100 shadow-black/20 rounded-lg bg-zinc-50 dark:bg-slate-800 overflow-hidden flex flex-col dark:border-slate-700"
+        >
+          <button className="flex items-center gap-2 p-1 rounded min-w-72 transition-all hover:bg-zinc-100 dark:hover:bg-slate-700">
+            <img
+              src="https://www.notion.so/images/blocks/text/en-US.png"
+              alt="Text"
+              className="w-12 border border-zinc-300 rounded"
+            />
+            <div className="flex flex-col text-left">
+              <span className="text-sm font-medium">Text</span>
+              <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                Just start writing with plain text
+              </span>
+            </div>
+          </button>
+          <button
+            onClick={editor.chain().focus().toggleHeading({ level: 1 }).run}
+            className="flex items-center gap-2 p-1 rounded min-w-72 transition-all hover:bg-zinc-100 dark:hover:bg-slate-700"
+          >
+            <img
+              src="https://www.notion.so/images/blocks/header.57a7576a.png"
+              alt="Heading 1"
+              className="w-12 border border-zinc-300 rounded"
+            />
+            <div className="flex flex-col text-left">
+              <span className="text-sm font-medium">Heading 1</span>
+              <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                Big section header
+              </span>
+            </div>
+          </button>
+          <button
+            className="flex items-center gap-2 p-1 rounded min-w-72 transition-all hover:bg-zinc-100 dark:hover:bg-slate-700"
+            onClick={editor.chain().focus().toggleHeading({ level: 2 }).run}
+          >
+            <img
+              src="https://www.notion.so/images/blocks/subheader.9aab4769.png"
+              alt="Heading 2"
+              className="w-12 border border-zinc-300 rounded"
+            />
+            <div className="flex flex-col text-left">
+              <span className="text-sm font-medium">Heading 2</span>
+              <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                Medium section header
+              </span>
+            </div>
+          </button>
+        </FloatingMenu>
+      )}
       {editor && (
         <BubbleMenu
           className="shadow-xl border border-zinc-100 shadow-black/20 rounded-lg overflow-hidden flex divide-x dark:border-slate-700 dark:divide-slate-700"

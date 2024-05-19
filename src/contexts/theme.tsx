@@ -16,7 +16,7 @@ interface IThemeProvider {
 const ThemeContext = createContext<IThemeProvider | null>(null);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
 
   function toggle() {
     const newTheme = theme == "dark" ? "light" : "dark";
