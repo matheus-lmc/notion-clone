@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import {
   useEditor,
   EditorContent,
@@ -22,7 +24,6 @@ import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/a11y-dark.min.css";
 
-import { initialContent } from "./initialContent";
 import BubbleButton from "./BubbleButton";
 
 const lowlight = createLowlight();
@@ -38,16 +39,39 @@ const extensions = [
     lowlight,
   }),
 ];
-export default function Editor() {
+function Editor({
+  content,
+  update,
+}: {
+  content: string;
+  update(newContent: string): void;
+}) {
+  const [contentRecentlyChanged, setContentRecentlyChanged] = useState(false);
+
   const editor = useEditor({
     extensions,
-    content: initialContent,
+    content: content,
     editorProps: {
       attributes: {
         class: "outline-none",
       },
     },
+    onUpdate() {
+      !contentRecentlyChanged && setContentRecentlyChanged(true);
+    },
   });
+
+  useEffect(() => {
+    const saveInterval = setInterval(() => {
+      if (editor && contentRecentlyChanged && content) {
+        const currentContent = editor.getHTML();
+        update(currentContent);
+        setContentRecentlyChanged(false);
+      }
+    }, 2000); // save every 2 seconds
+
+    return () => clearInterval(saveInterval);
+  }, [editor, update, contentRecentlyChanged]);
 
   return (
     <>
@@ -148,3 +172,5 @@ export default function Editor() {
     </>
   );
 }
+
+export default Editor;

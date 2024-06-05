@@ -1,9 +1,24 @@
+import { useState, useEffect } from "react";
 import Editor from "./components/Editor";
 import Sidebar from "./components/Sidebar";
 import { useTheme } from "./contexts/theme";
 
 function App() {
   const { theme } = useTheme();
+  const [content, setContent] = useState<string>(
+    `<h1>Notion Clone</h1> <p> Start taking notes with this dynamic editor </p>`
+  );
+
+  const [loaded, setLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    const savedContent = localStorage.getItem("@content");
+    console.log(savedContent);
+
+    if (savedContent) setContent(savedContent);
+
+    setLoaded(true);
+  }, []);
 
   return (
     <div
@@ -13,7 +28,15 @@ function App() {
     >
       <Sidebar />
       <main className="p-4">
-        <Editor />
+        {loaded && (
+          <Editor
+            content={content}
+            update={(c) => {
+              setContent(c);
+              localStorage.setItem("@content", c);
+            }}
+          />
+        )}
       </main>
     </div>
   );

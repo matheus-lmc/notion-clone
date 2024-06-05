@@ -1,4 +1,4 @@
-import { MdLightMode, MdAddCircleOutline, MdDarkMode } from "react-icons/md";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
 
 import devLogo from "../assets/dev-logo.svg";
 import { useTheme } from "../contexts/theme";
@@ -13,9 +13,6 @@ export default function Sidebar() {
           <img src={devLogo} alt="matheus-lmc" className="w-32 dark:invert" />
         </a>
         <div>
-          <button>
-            <MdAddCircleOutline className="hover:text-zinc-500 hover:transition-all" />
-          </button>
           <button onClick={toggle}>
             {theme == "dark" ? (
               <MdDarkMode className="hover:text-zinc-500 hover:transition-all ml-1" />

@@ -1,30 +1,33 @@
-# React + TypeScript + Vite
+# Notion clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project aims to clone the main features of Notion's very powerful text editor
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [TailwindCSS](https://tailwindcss.com)
+- [Typscript](https://www.typescriptlang.org)
+- [TipTap Editor](https://tiptap.dev)
 
-## Expanding the ESLint configuration
+## Possible future improvements
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [ ] Add colaboratire editing
+- [ ] Support for multiple notes
+- [ ] Aditional support for embedding images and links
 
-- Configure the top-level `parserOptions` property like this:
+## Running the project
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+// Clone the repository
+git clone https://github.com/matheus-lmc/notion-clone
+cd notion-clone
+
+// Install dependencies
+pnpm install
+
+// Run development version
+pnpm dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Live version
+
+The live version is available at the following link: https://notion-clone-beryl-ten.vercel.app
